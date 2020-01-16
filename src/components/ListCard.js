@@ -1,16 +1,16 @@
 import React from 'react'
 import Card from './Card'
+import './styles/ListCard.css'
 
 const ListCard = (props) => (
-    <ul>
-        List cards....
+    <div className="list-card">
         {props.profiles.map(profile => (
-            <li >
-                <Card />
-            </li>
+            <div className="card" key={profile.id}> 
+                <Card {...profile}/>
+            </div>
         ))}
         
-    </ul>
+    </div>
         
     
 );

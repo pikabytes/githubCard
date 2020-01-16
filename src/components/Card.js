@@ -5,12 +5,12 @@ class Card extends React.Component{
 
     render(){
         return(
-            <div className="github-profile">
-                <img src={this.props.avatar_url} alt="Avatar"/>
-                <div className="info">
-                    <div className="name">{this.props.name} alexis</div>
-                    <div>{this.props.login} pikabytes</div>
-                    <div>{this.props.hireable} true</div>    
+            <div className="card github-profile">
+                <img className="card-img-top" src={this.props.avatar_url} alt="Avatar"/>
+                <div className="card-body imagecard">
+                    <div className="card-title">{this.props.name}</div>
+                    <div className="card-text">{this.props.login}</div>
+                    <div className="card-text">{this.props.hireable === true ? "Hireable" : "Not Hireable"}</div>    
                 </div>
             </div>
         )

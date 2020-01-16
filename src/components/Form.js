@@ -1,8 +1,12 @@
 import React from 'react';
+import axios from 'axios';
+import './styles/Form.css';
+
 
 class Form extends React.Component{
     state ={
-        username:''
+        username:'',
+        error: null
     }
 
     handleOnChange =(event) =>{
@@ -12,24 +16,32 @@ class Form extends React.Component{
     handleSubmit = async (event) =>{
         event.preventDefault();
         try{
-            debugger
-            const response = await fetch(`https://api.github.com/users/${this.state.username}`);
-            console.log(response.data);
-            this.props.addProfile(response.data);
+            await axios.get(`https://api.github.com/users/${this.state.username}`)
+            .then( response => {
+                this.setState({error:null});
+                this.props.addProfile(response.data);
+
+            })
+            
         }catch(error){
-            console.log(error.message);
+            this.setState({error: error.message});
         }
         
     }
 
     render(){
         return(
-            <form onSubmit={this.handleSubmit}>
-                <input onChange={this.handleOnChange} 
-                    type="text" placeholder="Github username"
-                    value={this.state.username} />
-                <button className="btn btn-primary" >Search</button>
-            </form>
+            <React.Fragment>
+                <form onSubmit={this.handleSubmit}>
+                    <input onChange={this.handleOnChange} 
+                        type="text" placeholder="Github username"
+                        value={this.state.username} />
+                    <button className="btn btn-primary btn-form" >Search</button>
+                </form>
+                {this.state.error &&
+                        <label className="alert alert-danger">Error: {this.state.error}</label> }
+            </React.Fragment>
+            
         )
     }
 }
